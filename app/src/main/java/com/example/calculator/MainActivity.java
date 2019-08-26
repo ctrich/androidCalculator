@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         Button button8 = findViewById(R.id.button8);
         Button button9 = findViewById(R.id.button9);
         Button buttonDot = findViewById(R.id.buttonDot);
+        Button btnNeg = findViewById(R.id.btnNeg);
 
         Button buttonEquals = findViewById(R.id.buttonEquals);
         Button buttonDivide = findViewById(R.id.buttonDivide);
@@ -89,6 +90,25 @@ public class MainActivity extends AppCompatActivity {
         buttonMinus.setOnClickListener(opListener);
         buttonPlus.setOnClickListener(opListener);
         buttonEquals.setOnClickListener(opListener);
+
+        btnNeg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String value = newNumber.getText().toString();
+                if (value.length() == 0) {
+                    newNumber.setText("-");
+                } else {
+                    try {
+                        Double doubleValue = Double.valueOf(value);
+                        doubleValue *= -1;
+                        newNumber.setText(doubleValue.toString());
+                    } catch(NumberFormatException e) {
+                        //new number was "-" or ".", so clear it
+                        newNumber.setText("");
+                    }
+                }
+            }
+        });
     }
 
     private void performOperation(Double value, String operation) {
